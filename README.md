@@ -43,3 +43,26 @@ you can & will have more methods, objects, and variables than this. This is inte
 - rightTrigger (while being held down) = deploy & spin at 3000 RPM 
 - rightBumper (while being held down) = just deploy
 
+### Advantage Kit implementation
+##### Please reference https://github.com/Mechanical-Advantage/AdvantageKit for help with this, they even have example robot code if needed
+#### Top level layer (ex: Intake.java):
+- get/set methods
+- logging extra values
+- tunable numbers
+#### IO layer:
+- pass all variables through to log and from log using toLog and fromLog:
+> public void toLog(LogTable table) {
+  <br />    table.put("name", value);
+  <br />  }
+> <br />public void fromLog(LogTable table) {
+  <br />    value = table.get("name", defaultValue);
+  <br />  }
+- write out default forms of methods
+> public default void methodName(double value) {}
+#### Real layer:
+- use methods you laid out in IO to reference motors
+- update inputs
+> @Override
+  <br />public void updateInputs(IntakeIOInputs inputs) {
+> <br /> inputs.value = motor.getValue();
+> <br />}
